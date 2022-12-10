@@ -1,8 +1,11 @@
 import * as RSSHub from 'rsshub';
-import { sleep } from './utils';
+import path from 'path';
+import { sleep, runCMD } from './utils';
 import { RssFeed } from './types';
-import { runConfig, config } from './config';
 import { send } from './discord';
+import { config } from './config';
+
+const rss2jsonBin = path.resolve(__dirname, '../rss2json/rss2json');
 
 const runState = {
     pid: 0, // 每次运行run时，会更新pid，旧的pid会被丢弃，防止旧的runFeed在新的run中运行
@@ -25,8 +28,17 @@ const runFeed = async (feed: RssFeed, pid: number) => {
     if (pid !== runState.pid) return;
 
     try {
-        const msgs = await RSSHub.request(feed.url).then((res: any) => rssToMsg(feed, res));
-        send(feed.channels, msgs);
+        if (feed.channels.length) {
+            if (feed.preparse) {
+                const rssData = await runCMD(`${rss2jsonBin} "${feed.url}"`).then(r => JSON.parse(r));
+                rssData.item = rssData.items;
+                const msgs = rssToMsg(feed, rssData);
+                console.log(msgs)
+            } else {
+                const msgs = await RSSHub.request(feed.url).then((res: any) => rssToMsg(feed, res));
+                console.log(msgs);
+            }
+        }
     } catch (e) {
         console.log(feed.url, e);
     }
@@ -37,12 +49,16 @@ const runFeed = async (feed: RssFeed, pid: number) => {
 
 // run all feeds
 const run = async () => {
-    await runConfig();
     runState.pid = Date.now();
-    for (const feed of config().feeds) {
-        await sleep(100);
-        runFeed(feed, runState.pid);
+    const feed: RssFeed = {
+        "url": "http://cointelegraph.com/rss",
+        "desc": "SBF的推特",
+        "cronTime": 60,
+        "preparse": true,
+        "template": "[title]\n[link]",
+        "channels": ["1049608642917302313"]
     }
+    runFeed(feed, runState.pid);
 };
 
 run();
