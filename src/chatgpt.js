@@ -1,6 +1,6 @@
 // 这个文件没办法转为ts
 
-const {sleep} = require('./utils');
+const { sleep } = require('./utils');
 
 let client;
 let token = '';
@@ -11,11 +11,13 @@ async function init() {
     const { config } = require('./config');
     if (config().chatGptToken != token) {
         console.log('init chatgpt');
+        token = config().chatGptToken;
         const api = new ChatGPTAPI({
-            sessionToken: config().chatGptToken,
+            sessionToken: token,
         });
-        await api.ensureAuth();
-        client = api;
+        api.ensureAuth().then(() => {
+            client = api;
+        });
     }
 
     sleep(1000 * 10).then(() => init());
