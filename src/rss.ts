@@ -22,8 +22,10 @@ const runFeed = async (feed: RssFeed, pid: number) => {
     if (pid !== runState.pid) return;
 
     try {
-        const msgs = await RSSHub.request(feed.url).then((res: any) => rssToMsg(feed, res));
-        send(feed.channels, msgs);
+        if (feed.channels.length) {
+            const msgs = await RSSHub.request(feed.url).then((res: any) => rssToMsg(feed, res));
+            send(feed.channels, msgs);
+        }
     } catch (e) {
         console.log(feed.url, e);
     }
