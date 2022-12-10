@@ -37,7 +37,6 @@ const runFeed = async (feed: RssFeed, pid: number) => {
 // run all feeds
 const run = async () => {
     const feeds = config().feeds;
-    console.log(runState.feeds, feeds);
     if (runState.feeds !== feeds) {
         console.log('rss feeds changed, start');
         runState.feeds = feeds;
