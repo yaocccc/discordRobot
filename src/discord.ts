@@ -1,6 +1,7 @@
-import { Client, Message, GatewayIntentBits, Guild, TextChannel, REST, Routes, Partials, NonThreadGuildBasedChannel } from 'discord.js';
+import { Client, Message, GatewayIntentBits, Guild, OAuth2Guild, TextChannel, REST, Routes, Partials, NonThreadGuildBasedChannel } from 'discord.js';
 import { config } from './config';
 import { sendChatGpt } from './chatgpt';
+import {sleep} from './utils';
 
 const runState = {
     runtime: Date.now(),
@@ -12,7 +13,9 @@ const send = async (channelIds: string[], msgs: string[]) => {
     let count = 0;
     for (const channelId of channelIds) {
         const channel = runState.channels.get(channelId) as TextChannel;
-        if (!channel) continue;
+        if (!channel) {
+            continue;
+        }
 
         for (const msg of msgs) {
             const key = `${channelId}-${msg}`;
@@ -50,8 +53,11 @@ const run = async () => {
         console.log('discord logined');
         const guilds = await client.guilds.fetch();
         const _guild = guilds.get(config().discordGuildId);
-        const guild = await _guild.fetch();
-        runState.channels = await guild.channels.fetch();
+        while (1) { // 10分钟更新一次频道列表
+            const guild = await _guild.fetch();
+            runState.channels = await guild.channels.fetch();
+            await sleep(1000 * 60 * 10);
+        }
     });
     client.on('messageCreate', async (msg) => {
         msgConsumer(msg);
