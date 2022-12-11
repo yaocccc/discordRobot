@@ -1,6 +1,7 @@
 import * as RSSHub from 'rsshub';
 import path from 'path';
-import { sleep, runCMD } from './utils';
+import { sleep } from './utils';
+import { parse as rss2json } from 'rss-to-json';
 import { RssFeed } from './types';
 import { send } from './discord';
 import { config } from './config';
@@ -18,6 +19,7 @@ RSSHub.init({
 const rssToMsg = (feed: RssFeed, rssData: any) => {
     console.log(feed.url, rssData.item.length);
     return rssData.item.map((item: any) => {
+        console.log(item);
         return feed.template.replace(/\[([a-z]+)\]/g, (_, key) => {
             return item[key];
         });
@@ -30,9 +32,8 @@ const runFeed = async (feed: RssFeed, pid: number) => {
     try {
         if (feed.channels.length) {
             if (feed.preparse) {
-                const rssData = await runCMD(`${rss2jsonBin} "${feed.url}"`).then(r => JSON.parse(r));
-                rssData.item = rssData.items;
-                const msgs = rssToMsg(feed, rssData);
+                const rssData = await rss2json(feed.url);
+                const msgs = rssToMsg(feed, { item: rssData.items });
                 console.log(msgs)
             } else {
                 const msgs = await RSSHub.request(feed.url).then((res: any) => rssToMsg(feed, res));
@@ -51,7 +52,7 @@ const runFeed = async (feed: RssFeed, pid: number) => {
 const run = async () => {
     runState.pid = Date.now();
     const feed: RssFeed = {
-        "url": "http://cointelegraph.com/rss",
+        "url": "https://www.chainfeeds.xyz/rss",
         "desc": "SBF的推特",
         "cronTime": 60,
         "preparse": true,

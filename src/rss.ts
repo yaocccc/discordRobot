@@ -1,11 +1,9 @@
 import * as RSSHub from 'rsshub';
-import path from 'path';
-import { sleep, runCMD } from './utils';
+import { parse as rss2json } from 'rss-to-json';
+import { sleep } from './utils';
 import { RssFeed } from './types';
 import { send } from './discord';
 import { config } from './config';
-
-const rss2jsonBin = path.resolve(__dirname, '../rss2json/rss2json');
 
 const runState = {
     pid: 0, // 每次运行run时，会更新pid，旧的pid会被丢弃，防止旧的runFeed在新的run中运行
@@ -27,9 +25,8 @@ const runFeed = async (feed: RssFeed, pid: number) => {
     try {
         if (feed.channels.length) {
             if (feed.preparse) {
-                const rssData = await runCMD(`${rss2jsonBin} "${feed.url}"`).then(r => JSON.parse(r));
-                rssData.item = rssData.items;
-                const msgs = rssToMsg(feed, rssData);
+                const rssData = await rss2json('https://www.chainfeeds.xyz/rss');
+                const msgs = rssToMsg(feed, { item: rssData.items });
                 send(feed.channels, msgs);
             } else {
                 const msgs = await RSSHub.request(feed.url).then((res: any) => rssToMsg(feed, res));
