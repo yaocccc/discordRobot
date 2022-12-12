@@ -2,7 +2,7 @@ type RssFeed = {
     url: string;
     desc: string;
     cronTime: number;
-    preparse: boolean;
+    rss2json: boolean;
     template: string;
     channels: string[];
 };

@@ -28,13 +28,13 @@ const runConfig = async () => {
     sleep(1000 * 60).then(() => runConfig());
 };
 
-// const configToFile = async () => {
-//     fs.writeFileSync(
-//         configFile,
-//         JSON.stringify({
-//             _config,
-//         })
-//     );
-// };
+const configToFile = async () => {
+    fs.writeFileSync(
+        configFile,
+        JSON.stringify({
+            _config,
+        })
+    );
+};
 
-export { runConfig, config };
+export { runConfig, config, configToFile };

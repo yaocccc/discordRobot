@@ -54,7 +54,7 @@ nodejs
             "url": "/twitter/user/cz_binance/excludeReplies=1&count=3",
             "desc": "cz的推特",
             "cronTime": 20, // 获取间隙 秒
-            "preparse": false,
+            "rss2json": false,
             "template": "[author]: [title]\n[link]", // 消息模板
             "channels": [] // 关联频道id列表
         }

@@ -65,4 +65,6 @@ const run = async () => {
     await client.login(config().discordToken);
 };
 
-export { run as runDiscord, send as send };
+const getChannelById = (id: string) => runState.channels.get(id) as TextChannel;
+
+export { run as runDiscord, send as send, getChannelById };

@@ -24,7 +24,7 @@ const runFeed = async (feed: RssFeed, pid: number) => {
 
     try {
         if (feed.channels.length) {
-            if (feed.preparse) {
+            if (feed.rss2json) {
                 const rssData = await rss2json('https://www.chainfeeds.xyz/rss');
                 const msgs = rssToMsg(feed, { item: rssData.items });
                 send(feed.channels, msgs);

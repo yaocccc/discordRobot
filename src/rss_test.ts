@@ -31,7 +31,7 @@ const runFeed = async (feed: RssFeed, pid: number) => {
 
     try {
         if (feed.channels.length) {
-            if (feed.preparse) {
+            if (feed.rss2json) {
                 const rssData = await rss2json(feed.url);
                 const msgs = rssToMsg(feed, { item: rssData.items });
                 console.log(msgs)
@@ -55,7 +55,7 @@ const run = async () => {
         "url": "https://www.chainfeeds.xyz/rss",
         "desc": "SBF的推特",
         "cronTime": 60,
-        "preparse": true,
+        "rss2json": true,
         "template": "[title]\n[link]",
         "channels": ["1049608642917302313"]
     }
