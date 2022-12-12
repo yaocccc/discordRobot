@@ -30,18 +30,18 @@ const send = async (channelIds: string[], msgs: string[]) => {
 
 // msg to chatGPT
 const msgConsumer = async (msg: Message) => {
-    if (msg.channelId != config().chatGptChannelId) return; // is robot chat
-    if (msg.author.id == config().discordSelfId) return; // is self
-    if (!['!', '！'].includes(msg.content.trim()[0])) return; // must start with "!" or "！"
+    // if (msg.channelId != config().chatGptChannelId) return; // is robot chat
+    // if (msg.author.id == config().discordSelfId) return; // is self
+    // if (!['!', '！'].includes(msg.content.trim()[0])) return; // must start with "!" or "！"
 
-    try {
-        console.log(msg.content.trim().slice(1));
-        const res = await sendChatGpt(msg.content.trim().slice(1));
-        msg.reply(res);
-    } catch (e) {
-        console.log(e);
-        msg.reply('好像出了点问题' + e);
-    }
+    // try {
+    //     console.log(msg.content.trim().slice(1));
+    //     const res = await sendChatGpt(msg.content.trim().slice(1));
+    //     msg.reply(res);
+    // } catch (e) {
+    //     console.log(e);
+    //     msg.reply('好像出了点问题' + e);
+    // }
 };
 
 const run = async () => {
