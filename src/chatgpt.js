@@ -18,10 +18,9 @@ async function init() {
             clearanceToken: _c.chatGptClearanceToken,
             userAgent: _c.chatGptUserAgent,
         });
-        api.ensureAuth().then(() => {
+        // api.ensureAuth().then(() => {
             client = api;
-            console.log("chat gpt logined");
-        });
+        // });
     }
 
     sleep(1000 * 10).then(() => init());
