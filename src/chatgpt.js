@@ -11,12 +11,16 @@ async function init() {
     const { config } = require('./config');
     if (config().chatGptToken != token) {
         console.log('init chatgpt');
-        token = config().chatGptToken;
+        const _c = config();
+        token = _c.chatGptToken;
         const api = new ChatGPTAPI({
-            sessionToken: token,
+            sessionToken: _c.chatGptToken,
+            clearanceToken: _c.chatGptClearanceToken,
+            userAgent: _c.chatGptUserAgent,
         });
         api.ensureAuth().then(() => {
             client = api;
+            console.log("chat gpt logined");
         });
     }
 

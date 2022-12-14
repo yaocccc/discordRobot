@@ -10,6 +10,8 @@ const _config: Config = {
     discordGuildId: '',
     chatGptToken: '',
     chatGptChannelId: '',
+    chatGptClearanceToken: '',
+    chatGptUserAgent: '',
     discordSelfId: '',
     appPort: 0,
     feeds: [],

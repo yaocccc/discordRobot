@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
-    "chatgpt": "^2.0.4",
+    "chatgpt": "^2.3.1",
     "discord.js": "^14.7.1",
     "koa": "^2.13.4",
     "koa-body": "^5.0.0",

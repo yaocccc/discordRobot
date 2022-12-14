@@ -1039,19 +1039,20 @@ charenc@0.0.2:
   resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
   integrity sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==
 
-chatgpt@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/chatgpt/-/chatgpt-2.0.4.tgz#bd8a6f5658784e0fa2983ffdbf2800e7c29acd26"
-  integrity sha512-xHSgzreyJs9h0eE3GSSW7YWWxaFjx9mfEfWzyqEs5XMYDOPZp3GFYyUoVcrXNlJ0+zr7mrFJf+hFCIAWYIHLsw==
+chatgpt@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/chatgpt/-/chatgpt-2.3.1.tgz#792b20e7763b9b8a12e61fc24fe203a195ea96fc"
+  integrity sha512-jzI1c3s3S5T9tUnebx5NvgwKMsc5gj9oQEnS+Exdtd/4V9o8Bycuqz50g9CpAaJPnBDbJxq6GTge2I+m4oSWPw==
   dependencies:
+    delay "^5.0.0"
     eventsource-parser "^0.0.5"
     expiry-map "^2.0.0"
     p-timeout "^6.0.0"
+    puppeteer-extra "^3.3.4"
+    puppeteer-extra-plugin-stealth "^2.11.1"
     remark "^14.0.2"
     strip-markdown "^5.0.0"
     uuid "^9.0.0"
-  optionalDependencies:
-    undici "^5.13.0"
 
 cheerio-select@^2.1.0:
   version "2.1.0"
@@ -1521,6 +1522,11 @@ degenerator@^2.2.0:
     ast-types "^0.13.2"
     escodegen "^1.8.1"
     esprima "^4.0.0"
+
+delay@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/delay/-/delay-5.0.0.tgz#137045ef1b96e5071060dd5be60bf9334436bd1d"
+  integrity sha512-ReEBKkIfe4ya47wlPYf/gu5ib6yUG0/Aez0JQZQz94kiWtRQvZIQbTiehsnwHvLSWJnQdhVeqYue7Id1dKr0qw==
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -4460,7 +4466,7 @@ puppeteer-core@19.3.0:
     unbzip2-stream "1.4.3"
     ws "8.10.0"
 
-puppeteer-extra-plugin-stealth@2.11.1:
+puppeteer-extra-plugin-stealth@2.11.1, puppeteer-extra-plugin-stealth@^2.11.1:
   version "2.11.1"
   resolved "https://registry.yarnpkg.com/puppeteer-extra-plugin-stealth/-/puppeteer-extra-plugin-stealth-2.11.1.tgz#7d56a27a986cb5eb69dca3c65695ad6444f4e822"
   integrity sha512-n0wdC0Ilc9tk5L6FWLyd0P2gT8b2fp+2NuB+KB0oTSw3wXaZ0D6WNakjJsayJ4waGzIJFCUHkmK9zgx5NKMoFw==
@@ -4498,7 +4504,7 @@ puppeteer-extra-plugin@^3.2.2:
     debug "^4.1.1"
     merge-deep "^3.0.1"
 
-puppeteer-extra@3.3.4:
+puppeteer-extra@3.3.4, puppeteer-extra@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/puppeteer-extra/-/puppeteer-extra-3.3.4.tgz#e0ecf021783d1112b6b0db20546d5022e632ed55"
   integrity sha512-fN5pHvSMJ8d1o7Z8wLLTQOUBpORD2BcFn+KDs7QnkGZs9SV69hcUcce67vX4L4bNSEG3A0P6Osrv+vWNhhdm8w==

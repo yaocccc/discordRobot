@@ -8,12 +8,21 @@ type RssFeed = {
 };
 
 type Config = {
+    /** discord */
     discordToken: string;
     discordGuildId: string;
-    chatGptChannelId: string;
     discordSelfId: string;
-    appPort: number;
+
+    /** chatGpt */
     chatGptToken: string;
+    chatGptChannelId: string;
+    chatGptClearanceToken: string;
+    chatGptUserAgent: string;
+
+    /** app */
+    appPort: number;
+
+    /** rss */
     feeds: RssFeed[];
 };
 
