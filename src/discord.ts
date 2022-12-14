@@ -36,7 +36,7 @@ const msgConsumer = async (msg: Message) => {
 
     try {
         console.log(msg.content.trim().slice(1));
-        const res = await sendChatGpt(msg.content.trim().slice(1));
+        const res = await sendChatGpt(msg.author, msg.content.trim().slice(1));
         msg.reply(res);
     } catch (e) {
         console.log(e);
